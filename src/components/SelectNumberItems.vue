@@ -3,6 +3,7 @@
     <label class="mfe-2 form-inline">
       <span class="adventFont">Show</span>
       <select
+        :value="$parent.rowsPerPage"
         class="select"
         @change="setRowsPerPage"
       >
