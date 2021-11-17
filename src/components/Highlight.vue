@@ -1,5 +1,5 @@
 <template>
-  <span v-if="searchValue">
+  <span v-if="searchValue && searchable && label">
     <span>{{label.firstPart}}</span>
     <span class="highlight">{{label.founded}}</span>
     <span>{{label.lastPart}}</span>
@@ -14,11 +14,14 @@ export default {
   name: "Hightlight",
   props: {
     text: String,
+    searchable: Boolean,
     searchValue: String,
   },
   computed: {
     label: function() {
       const firstIndex = this.text.toUpperCase().indexOf(this.searchValue.toUpperCase());
+      if (firstIndex === -1) return;
+
       const lastIndex = firstIndex + this.searchValue.length;
 
       const firstPart = this.text.slice(0, firstIndex);

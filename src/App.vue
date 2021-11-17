@@ -39,12 +39,19 @@
       class="table"
       :tableItems="tableItems"
       :tableLabels="tableLabels"
+      :searchableProperties="['firstName', 'lastName', 'email']"
       :tableTitle="tableTitle"
       tableIcons="fas fa-ban"
       :searchable="searchable"
       :itemsPerPageSelect="itemsPerPageSelect"
       :tablePagination="tablePagination"
     >
+      <template v-slot:avatar="{ item }">
+        <td>
+          <img class="userAvatar" :src="item.avatar" :alt="`${item.firstName} avatar`">
+        </td>
+      </template>
+
       <template v-slot:activity="{ item }">
         <td>
           <button
@@ -121,6 +128,9 @@ export default {
       editedUser: null,
       tableLabels: [
         {
+          key: 'avatar',
+        },
+        {
           key: "email",
           _style: "width: 33%; min-width: 300px",
         },
@@ -147,13 +157,12 @@ export default {
       this.tableItems = result;
     },
     saveUser: function () {
-      console.log("asdasd");
       if (!this.editedUser) return;
-      console.log(this.editedUser);
+
       const result = this.tableItems.map((user) =>
         user.id === this.editedUser.id ? this.editedUser : user
       );
-      console.log(result);
+
       this.tableItems = result;
     },
   },
@@ -185,6 +194,12 @@ export default {
       min-width: 80px;
     }
   }
+}
+
+.userAvatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 
 .table {

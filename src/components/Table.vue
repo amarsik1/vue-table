@@ -54,11 +54,10 @@
                 :key="index"
               >
                 <Highlight
-                  v-if="searchable"
-                  :text="String(item[colName])"
+                  :searchable="searchable"
+                  :text="String(item[colName] || '')"
                   :searchValue="searchInput"
                 />
-                <span v-else>{{String(item[colName])}}</span>
               </td>
             </template>
           </tr>
